@@ -2,7 +2,7 @@
   "name": "Distributor",
   "version": "1.0.0",
   "description": "A github distributer",
-  "main": "app.js",
+  "main": "dist/bundle.js",
   "scripts": {
     "start": "yarn install && node app.js",
     "test": "echo 'Running in test environment...' ; node app.js"

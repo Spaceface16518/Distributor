@@ -142,3 +142,5 @@ venv.bak/
 ## Custom ignores ##
 node_modules
 test.txt
+yarn-error.log
+yarn.lock
