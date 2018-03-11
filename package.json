@@ -2,18 +2,25 @@
   "name": "Distributor",
   "version": "1.0.0",
   "description": "A github distributer",
-  "main": "dist/bundle.js",
+  "main": "dist/app.js",
   "scripts": {
-    "start": "yarn install && node app.js",
-    "test": "echo 'Running in test environment...' ; node app.js"
+    "start": "node dist/app.js",
+    "test": "echo 'Running in test environment...' ; node src/index.js",
+    "build": "yarn install && browserify src/index.js -o temp/bundle.js --global-transform [ babelify --presets es2015 ] && uglifyjs temp/bundle.js --compress --mangle  --output dist/app.js"
   },
   "repository": "https://github.com/Spaceface16518/Distributor.git",
   "author": "Spaceface16518 <33424649+Spaceface16518@users.noreply.github.com>",
   "license": "MIT",
   "dependencies": {
-    "commander": "^2.14.1",
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babelify": "^8.0.0",
+    "browserify": "^16.1.1",
+    "commander": "^2.15.0",
+    "fakefile": "^0.0.9",
     "inquirer": "^5.1.0",
     "jquery": "^3.3.1",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "uglify-js": "^3.3.14"
   }
 }

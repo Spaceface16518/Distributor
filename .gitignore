@@ -144,3 +144,5 @@ node_modules
 test.txt
 yarn-error.log
 yarn.lock
+temp/
+dist/

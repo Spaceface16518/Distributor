@@ -72,36 +72,54 @@ class Request {
 }
 
 class Settings {
-    constructor(commanderArguments) {
-      this.verbose = commanderArguments.verbose;
-      this.destination = commanderArguments.destination;
-      this.mode = commanderArguments.mode;
-    }
+  constructor(commanderArguments) {
+    this.verbose = commanderArguments.verbose;
+    this.destination = commanderArguments.destination;
+    this.mode = commanderArguments.mode;
+  }
 
-    get settings() {
-      return {
-        verbose: this.verbose,
-        destination: this.destination,
-      }
-    }
-    get mode() {
-      switch (this.mode) {
-        case "interogate":
-          return true;
-          break;
-        case "command line":
-          return false;
-        default:  true
-          break;
-      }
+  get settings() {
+    return {
+      verbose: this.verbose,
+      destination: this.destination,
     }
   }
+  get mode() {
+    switch (this.mode) {
+      case "interogate":
+        return true;
+        break;
+      case "command line":
+        return false;
+      default:
+        true
+        break;
+    }
+  }
+}
 
 // MAIN
 console.log("Running distributer program");
-let answers = interogate();
-console.log(answers)
-let request = new Request(answers);
+let answers;
+const questions =  [{
+    type: "input",
+    name: "owner",
+    message: "What is the username of the owner of the repository you are trying to get a file from?"
+  }, {
+    type: "input",
+    name: "repository",
+    message: "What is the name of the repository you are trying to get a file from?"
+  }, {
+    type: "input",
+    name: "filepath",
+    message: "What is the file path under the repository name?"
+  }]
+inquire.prompt(questions).then(answers => {
+  let request = new Request(answers);
+  distribute(request, null)
+})
+//console.log(answers)
+//let request = new Request(answers);
 //let prefs = new Settings( /* commander arguments */ )
 //distribute(answers, prefs)
 
@@ -117,53 +135,8 @@ function getUrl(url) {
 }
 
 function distribute(requestObject, settings) {
-  console.log(requestObject)
+  console.log(requestObject.file)
 }
 
 
 
-function interogate() {
-  const questions = {
-    long: [{
-        type: "input",
-        name: "owner",
-        message: "What is the username of the owner of the repository you are trying to get a file from?"
-      },
-      {
-        type: "input",
-        name: "repository",
-        message: "What is the name of the repository you are trying to get a file from?"
-      },
-      {
-        type: "input",
-        name: "filepath",
-        message: "What is the file path under the repository name?"
-      }
-    ],
-    short: [{
-        type: "input",
-        name: "owner",
-        message: "Owner name: "
-      },
-      {
-        type: "input",
-        name: "repo",
-        message: "Repo name: "
-      },
-      {
-        type: "input",
-        name: "filepath",
-        message: "File path: "
-      }
-    ]
-  };
-  if (true) {
-    inquire.prompt(questions.long).then(answers => {
-      return answers;
-    });
-  } else {
-    inquire.prompt(questions.short).then(answers => {
-      return answers;
-    });
-  }
-}
